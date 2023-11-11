@@ -4,9 +4,11 @@ from App import db
 # from posts.blueprint import posts
 from api.v1.views.path import *
 from flask import make_response
+from flask_cors import CORS
 
 # app.register_blueprint(posts, url_prefix='/blog')
 app.register_blueprint(app_views)
+cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 @app.teardown_appcontext
 def close_db(error):
