@@ -88,3 +88,19 @@ def post_blog(user_id):
     db.session.add(post)
     db.session.commit()
     return make_response(jsonify(serialized_posts(post)), 201)
+
+@app_views.route('/posts/<int:id>', methods=['PUT'],
+                 strict_slashes=False)
+def put_post(id):
+    """Create a new view for User object that
+    handles all default RESTFul API actions:"""
+    post = Post.query.filter_by(id=id).first()
+    if post is None:
+        abort(404)
+    if not request.get_json():
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
+    for attr, val in request.get_json().items():
+        if attr not in ['id', 'user_id', 'created', 'slug']:
+            setattr(post, attr, val)
+    db.session.commit()
+    return jsonify(serialized_posts(post))
