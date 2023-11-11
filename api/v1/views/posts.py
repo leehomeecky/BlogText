@@ -43,7 +43,7 @@ def get_posts():
     """Create a new view for post object that handles
     all default RESTFul API actions:"""
     # users = []
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.created.desc())
     serialized_post = [serialized_posts(post) for post in posts]
     return jsonify(serialized_post)
 
@@ -69,3 +69,22 @@ def delete_post(id):
     db.session.delete(post)
     db.session.commit()
     return (jsonify({}))
+
+@app_views.route('/users/<user_id>/posts', methods=['POST'], strict_slashes=False)
+def post_blog(user_id):
+    """Create a new view for User object
+    that handles all default RESTFul API actions:"""
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        abort(404)
+    if not request.get_json():
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
+    if 'title' not in request.get_json():
+        return make_response(jsonify({'error': 'Missing title'}), 400)
+    if 'body' not in request.get_json():
+        return make_response(jsonify({'error': 'Missing body'}), 400)
+    post = Post(**request.get_json())
+    post.user_id = user.id
+    db.session.add(post)
+    db.session.commit()
+    return make_response(jsonify(serialized_posts(post)), 201)

@@ -25,7 +25,7 @@ def get_users():
     """Create a new view for User object that handles
     all default RESTFul API actions:"""
     # users = []
-    users = User.query.all()
+    users = User.query.order_by(User.created.desc())
     serialized_users = [serialize_user(user) for user in users]
     return jsonify(serialized_users)
 
