@@ -6,7 +6,10 @@ WORKDIR /app
 COPY . /app
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Expose the port
 EXPOSE 8200
+
+# Command to run the application
+CMD ["sh", "-c", "python main.py"]
