@@ -10,7 +10,7 @@ services:
       - app
     ports:
       - 8200:8200
-    # command: [sh, -c, "python main.py"]
+    # command: [sh, -c, "python main.py"]/juet to cause changes
     volumes:
       - .:/app:delegated
 
