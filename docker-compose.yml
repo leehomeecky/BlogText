@@ -1,0 +1,18 @@
+version: "0.0.1"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    working_dir: /app
+    networks:
+      - app
+    ports:
+      - 8200:8200
+    command: [sh, -c, "python main.py"]
+    volumes:
+      - .:/app:delegated
+
+networks:
+  app:
