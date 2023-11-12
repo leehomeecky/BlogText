@@ -73,6 +73,7 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140)) 
     slug = db.Column(db.String(140), unique=True)
+    created = db.Column(db.DateTime, default=datetime.now())
         
         
     def __init__(self, *args, **kwargs):
