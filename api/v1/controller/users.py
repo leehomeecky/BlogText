@@ -7,10 +7,11 @@ from sqlalchemy.orm import *
 from flask import abort, jsonify, make_response, request
 from api.v1.controller.path import app_controller
 from models import *
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 def serialize_user(user):
     """Serialize a User object to a JSON-serializable format."""
     return {
-        'id': user.id,
+        'UserId': user.userid,
         'first_name': user.first_name,
         'last_name': user.last_name,
         'filepath': user.filepath,
@@ -20,11 +21,39 @@ def serialize_user(user):
         
         # Add other User attributes here
     }
+@app_controller.route('/user/login/', methods=['POST'], strict_slashes = False)
+def login():
+    """login user in """
+    if not request.get_json():
+        return make_response(jsonify({'error': 'Not a JSON'}), 400)
+    if 'email' not in request.get_json():
+        return make_response(jsonify({'error': 'Missing email'}), 400)
+    if 'password' not in request.get_json():
+        return make_response(jsonify({'error': 'Missing password'}), 400)
+    email = request.get_json().get('email')
+    pwd = request.get_json().get('password')
+    password_ = hashlib.md5(pwd.encode()).hexdigest()
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({"message": "Invalid username or password"}), 401
+    if user.password != password_:
+        return make_response(jsonify({'error': 'Invalid username or password'}), 401)
+    else:
+        access_token = create_access_token(identity=user.email)
+        return jsonify(access_token=access_token)
+
 @app_controller.route('/users', methods=['GET'], strict_slashes=False)
+@jwt_required()
 def get_users():
     """Create a new view for User object that handles
     all default RESTFul API actions:"""
-    # users = []
+    current_user = get_jwt_identity()
+    if not current_user:
+        return jsonify({"message": "Not a valid user"}), 401
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"message": "Not a valid user"}), 401
+
     users = User.query.order_by(User.created.desc())
     serialized_users = [serialize_user(user) for user in users]
     return jsonify(serialized_users)

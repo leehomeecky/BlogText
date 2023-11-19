@@ -4,6 +4,7 @@ import re
 from time import time
 from sqlalchemy.orm import *
 import hashlib
+from uuid import uuid4
 
 def slugify(s):
     pattern = r"[^\w+]"
@@ -18,6 +19,7 @@ posts_tags = db.Table('posts_tags',
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.String(128), unique=True, nullable=True)
     email = db.Column(db.String(128), nullable=False)
     _password = db.Column('password',
                         db.String(128),
@@ -30,6 +32,7 @@ class User(db.Model):
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
+        self.userid = str(uuid4())
         super().__init__(*args, **kwargs)
     
     # def __repr__(self):
