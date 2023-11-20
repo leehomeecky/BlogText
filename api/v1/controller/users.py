@@ -58,12 +58,18 @@ def get_users():
     serialized_users = [serialize_user(user) for user in users]
     return jsonify(serialized_users)
 
-@app_controller.route('/users/<int:id>', methods=['GET'], strict_slashes=False)
+@app_controller.route('/users/<id>', methods=['GET'], strict_slashes=False)
+@jwt_required()
 def get_user_by_id(id):
-    """Create a new view for User object that handles
-    all default RESTFul API actions:"""
-    # users = []
-    user = User.query.filter_by(id=id).first()
+    """get a user by id """
+    current_user = get_jwt_identity()
+    if not current_user:
+        return jsonify({"message": "Not a valid user"}), 401
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"message": "Not a valid user"}), 401
+
+    user = User.query.filter_by(userid=id).first()
     if user is None:
         abort(404)
     serialized_user = serialize_user(user)
