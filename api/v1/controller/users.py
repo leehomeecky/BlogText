@@ -76,12 +76,19 @@ def get_user_by_id(id):
     return jsonify(serialized_user)
 
 
-@app_controller.route('/users/<int:id>', methods=['DELETE'],
+@app_controller.route('/users/<id>', methods=['DELETE'],
                  strict_slashes=False)
+@jwt_required()
 def delete_user(id):
-    """Create a new view for User object that
-    handles all default RESTFul API actions:"""
-    user = User.query.filter_by(id=id).first()
+    """Delete a User """
+    current_user = get_jwt_identity()
+    if not current_user:
+        return jsonify({"message": "Not a valid user"}), 401
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"message": "Not a valid user"}), 401
+
+    user = User.query.filter_by(userid=id).first()
     if user is None:
         abort(404)
     db.session.delete(user)
@@ -89,9 +96,16 @@ def delete_user(id):
     return (jsonify({}))
 
 @app_controller.route('/users', methods=['POST'], strict_slashes=False)
+@jwt_required()
 def post_user():
-    """Create a new view for User object
-    that handles all default RESTFul API actions:"""
+    """Create a new user"""
+    current_user = get_jwt_identity()
+    if not current_user:
+        return jsonify({"message": "Not a valid user"}), 401
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"message": "Not a valid user"}), 401
+
     if not request.get_json():
         return make_response(jsonify({'error': 'Not a JSON'}), 400)
     if 'email' not in request.get_json():
@@ -107,18 +121,25 @@ def post_user():
     db.session.commit()
     return make_response(jsonify(serialize_user(user)), 201)
 
-@app_controller.route('/users/<int:id>', methods=['PUT'],
+@app_controller.route('/users/<id>', methods=['PUT'],
                  strict_slashes=False)
+@jwt_required()
 def put_user(id):
-    """Create a new view for User object that
-    handles all default RESTFul API actions:"""
-    user = User.query.filter_by(id=id).first()
+    """Update a user by user id"""
+    current_user = get_jwt_identity()
+    if not current_user:
+        return jsonify({"message": "Not a valid user"}), 401
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"message": "Not a valid user"}), 401
+
+    user = User.query.filter_by(userid=id).first()
     if user is None:
         abort(404)
     if not request.get_json():
         return make_response(jsonify({'error': 'Not a JSON'}), 400)
     for attr, val in request.get_json().items():
-        if attr not in ['id', 'email', 'created']:
+        if attr not in ['id', 'email', 'created', 'userid']:
             setattr(user, attr, val)
     db.session.commit()
     return jsonify(serialize_user(user))
