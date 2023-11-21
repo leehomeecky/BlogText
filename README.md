@@ -24,7 +24,7 @@ git clone https://github.com/your-username/your-blog.git
 
 2. Navigate to the Project Directory:
 
-cd your-blog
+<i> cd your-blog </i>
 
 4. Install Dependencies:
 
