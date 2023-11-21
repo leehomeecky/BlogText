@@ -28,7 +28,7 @@ cd your-blog
 
 4. Install Dependencies:
 
-npm install
+<i> npm install </i>
 
 <h3> Usage </h3>
 
@@ -41,7 +41,7 @@ Visit http://localhost:3000 to view the blog locally.
 3. Start Writing:
 Add your blog posts to the posts directory. The blog supports markdown for easy content creation.
 
-Contributing
+<h3> Contributing </h3>
 
 If you would like to contribute to the blog, feel free to submit pull requests. Contributions may include bug fixes, new features, or improvements to the existing content.
 
@@ -51,4 +51,5 @@ Make your changes and commit them: git commit -m 'Add some feature'.
 Push to the branch: git push origin feature/your-feature.
 Submit a pull request.
 
-Thank you for visiting our blog repository! If you have any questions or suggestions, feel free to open an issue. Happy reading!
+Thank you for visiting our blog repository! If you have any questions or suggestions, feel free to open an issue. 
+Happy reading!
