@@ -1,5 +1,5 @@
 
-Blog Title
+BLOG TEXT
 
 Description
 
@@ -24,9 +24,11 @@ Installation
 git clone https://github.com/your-username/your-blog.git
 
 2. Navigate to the Project Directory:
+
 cd your-blog
 
-3. Install Dependencies:
+4. Install Dependencies:
+
 npm install
 
 Usage
