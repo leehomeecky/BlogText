@@ -1,7 +1,6 @@
-
 BLOG TEXT
 
-Description
+<h3> Description </h3>
 
 Welcome to the official repository for my blog! This repository contains the source code and content for my blog, where I share my thoughts, ideas, and experiences on various topics. Whether you're interested in technology, programming, lifestyle, or just looking for some inspiration, you'll find something here.
 
@@ -52,4 +51,4 @@ Make your changes and commit them: git commit -m 'Add some feature'.
 Push to the branch: git push origin feature/your-feature.
 Submit a pull request.
 
-Thank you for visiting my blog repository! If you have any questions or suggestions, feel free to open an issue. Happy reading!
+Thank you for visiting our blog repository! If you have any questions or suggestions, feel free to open an issue. Happy reading!
