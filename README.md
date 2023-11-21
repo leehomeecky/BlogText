@@ -4,20 +4,20 @@ BLOG TEXT
 
 Welcome to the official repository for my blog! This repository contains the source code and content for my blog, where I share my thoughts, ideas, and experiences on various topics. Whether you're interested in technology, programming, lifestyle, or just looking for some inspiration, you'll find something here.
 
-Table of Contents
+<h3> Table of Contents </h3>
 
 Features
 Installation
 Usage
 Contributing
 
-Features
+<h3> Features </h3>
 
 Diverse Content: Explore a variety of topics, including technology, programming, lifestyle, and more.
 Responsive Design: The blog is designed to be responsive and accessible on different devices and screen sizes.
 Easy Navigation: Intuitive navigation to help you find and read articles seamlessly.
 
-Installation
+<h3> Installation </h3>
 
 1. Clone the Repository:
 git clone https://github.com/your-username/your-blog.git
@@ -30,7 +30,7 @@ cd your-blog
 
 npm install
 
-Usage
+<h3> Usage </h3>
 
 1. Run the Development Server:
 npm run start
