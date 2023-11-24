@@ -6,10 +6,13 @@ Welcome to the official repository for our blog! This repository contains the so
 
 <h3> TABLES OF CONTENTS </h3>
 
-Features
-Installation
-Usage
-Contributing
+◆ Features
+
+◆ Installation
+
+◆ Usage
+
+◆ Contributing
 
 <h3> FEATURES </h3>
 
