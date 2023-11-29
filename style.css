@@ -1,0 +1,60 @@
+#wrapper {
+    margin-left: 40%;
+    margin-top: 10%;
+
+
+}
+
+input {
+    height: 8.3vh;
+    border-bottom: solid 2px black;
+    border-radius: 5px;
+    width: 26vw;
+    margin-bottom: 10px;
+}
+
+label {
+    margin: 10px;
+    font-size: 1.4em;
+}
+
+button {
+    width: 77 vw;
+    background-color: rgb(52, 52, 239);
+    height: 8vh;
+    border: none;
+    border-radius: 15px;
+    margin-top: 15px;
+    color: white;
+}
+
+img {
+    border: 1px solid white;
+    display: block;
+    height: 140px;
+    width: 100px;
+}
+
+form .wrap_logo {
+    position: relative;
+}
+
+form a {
+    display: block;
+}
+
+input {
+    text-indent: 20px;
+}
+
+form .wrap_logo span {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translate(-50%, -50%);
+}
+
+.btn{
+    bottom: 100%;
+    width: 80px;
+}
